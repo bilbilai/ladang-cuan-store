@@ -44,6 +44,18 @@
             -webkit-text-fill-color: transparent;
         }
 
+        .nav-links { display: flex; gap: 20px; align-items: center; }
+
+        .nav-links a {
+            color: #8892b0;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover { color: #f7931a; }
+
         .hero {
             text-align: center;
             padding: 80px 20px;
@@ -82,6 +94,51 @@
             color: #8892b0;
             margin-bottom: 30px;
             line-height: 1.6;
+        }
+
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            padding: 15px 35px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 800;
+            cursor: pointer;
+            background: linear-gradient(135deg, #f7931a, #ffb347);
+            color: #000;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-primary:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(247,147,26,0.4);
+        }
+
+        .btn-secondary {
+            padding: 15px 35px;
+            border: 2px solid rgba(247,147,26,0.5);
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 800;
+            cursor: pointer;
+            background: transparent;
+            color: #f7931a;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(247,147,26,0.1);
+            transform: scale(1.05);
         }
 
         .countdown-section {
@@ -250,6 +307,97 @@
             color: #ff4444;
         }
 
+        /* COMMUNITY SECTION */
+        .community-section {
+            padding: 60px 20px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .community-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .community-card {
+            background: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 16px;
+            padding: 25px;
+            text-align: center;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: #fff;
+            display: block;
+        }
+
+        .community-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(247,147,26,0.5);
+            box-shadow: 0 15px 40px rgba(247,147,26,0.15);
+        }
+
+        .community-card .icon { font-size: 2.5rem; margin-bottom: 10px; }
+
+        .community-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 5px; }
+
+        .community-card p { color: #8892b0; font-size: 0.85rem; }
+
+        .community-card.wa { border-color: rgba(37,211,102,0.3); }
+        .community-card.wa:hover { border-color: #25d366; box-shadow: 0 15px 40px rgba(37,211,102,0.15); }
+
+        .community-card.tele { border-color: rgba(0,136,204,0.3); }
+        .community-card.tele:hover { border-color: #0088cc; box-shadow: 0 15px 40px rgba(0,136,204,0.15); }
+
+        .community-card.ig { border-color: rgba(225,48,108,0.3); }
+        .community-card.ig:hover { border-color: #e1306c; box-shadow: 0 15px 40px rgba(225,48,108,0.15); }
+
+        .community-card.tiktok { border-color: rgba(255,0,80,0.3); }
+        .community-card.tiktok:hover { border-color: #ff0050; box-shadow: 0 15px 40px rgba(255,0,80,0.15); }
+
+        /* FLOATING WA BUTTON */
+        .floating-wa {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            z-index: 999;
+            background: #25d366;
+            color: #fff;
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            text-decoration: none;
+            box-shadow: 0 5px 25px rgba(37,211,102,0.4);
+            transition: all 0.3s;
+            animation: bounce 2s infinite;
+        }
+
+        .floating-wa:hover {
+            transform: scale(1.1);
+            box-shadow: 0 10px 40px rgba(37,211,102,0.6);
+        }
+
+        .floating-wa-label {
+            position: fixed;
+            bottom: 95px;
+            right: 15px;
+            z-index: 999;
+            background: #1a1a2e;
+            border: 1px solid #25d366;
+            color: #25d366;
+            padding: 8px 15px;
+            border-radius: 10px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            animation: bounce 2s infinite;
+        }
+
         .testimonials {
             padding: 60px 20px;
             max-width: 1000px;
@@ -363,8 +511,14 @@
             margin-top: 40px;
         }
 
+        footer a { color: #f7931a; text-decoration: none; }
+
         @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
         @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
 
         .loading { text-align: center; padding: 60px; color: #8892b0; }
 
@@ -382,10 +536,13 @@
         @media (max-width: 768px) {
             .hero h1 { font-size: 2rem; }
             .products-grid { grid-template-columns: 1fr; }
+            .community-grid { grid-template-columns: 1fr; }
             nav { padding: 15px 20px; }
+            .nav-links { display: none; }
             .trust-badges { gap: 20px; }
             .countdown-item { min-width: 60px; padding: 10px 15px; }
             .countdown-item .number { font-size: 1.5rem; }
+            .hero-buttons { flex-direction: column; align-items: center; }
         }
     </style>
 </head>
@@ -394,13 +551,21 @@
 
     <nav>
         <div class="logo">💰 Ladang Cuan</div>
-        <div style="color:#8892b0;font-size:0.85rem;">📚 Ebook Premium Crypto</div>
+        <div class="nav-links">
+            <a href="#products">📚 Ebook</a>
+            <a href="#community">👥 Komunitas</a>
+            <a href="https://wa.me/6289525277026" target="_blank">💬 Konsultasi</a>
+        </div>
     </nav>
 
     <section class="hero">
         <div class="hero-badge">🔥 FLASH SALE — Diskon 50% Hari Ini!</div>
         <h1>Mulai Perjalanan <span>Crypto</span> Lo dan Raih <span>Cuan Maksimal!</span></h1>
         <p>Ebook premium yang udah bantu 1,500+ orang Indonesia mulai cuan dari crypto. Dari pemula sampai mahir, semua ada di sini.</p>
+        <div class="hero-buttons">
+            <a href="#products" class="btn-primary">🚀 Beli Ebook Sekarang</a>
+            <a href="#community" class="btn-secondary">👥 Gabung Komunitas</a>
+        </div>
     </section>
 
     <section class="countdown-section">
@@ -436,13 +601,43 @@
         </div>
     </section>
 
-    <section class="products-section">
+    <section class="products-section" id="products">
         <h2 class="section-title">🚀 Pilih Ebook Lo</h2>
         <div class="products-grid" id="productsGrid">
             <div class="loading">
                 <div class="spinner"></div>
                 <p>Memuat produk...</p>
             </div>
+        </div>
+    </section>
+
+    <section class="community-section" id="community">
+        <h2 class="section-title">👥 Gabung Komunitas Ladang Cuan</h2>
+        <p style="text-align:center;color:#8892b0;margin-bottom:10px;">Join ribuan member yang udah cuan bareng! Dapet update, sinyal, dan diskusi crypto setiap hari.</p>
+        <div class="community-grid">
+            <a href="https://chat.whatsapp.com/LsWzeV7W2Qv6nFkOwML5h3" target="_blank" class="community-card wa">
+                <div class="icon">💬</div>
+                <h3>Grup WhatsApp</h3>
+                <p>Ladang Cuan Crypto — Diskusi & update harian</p>
+            </a>
+            <a href="https://t.me/+gRlrV3myAxtiZDhl" target="_blank" class="community-card tele">
+                <div class="icon">✈️</div>
+                <h3>Grup Telegram</h3>
+                <p>Cryptocium — Sinyal & analisa crypto</p>
+            </a>
+            <a href="https://www.instagram.com/ladangcuancrypto/" target="_blank" class="community-card ig">
+                <div class="icon">📸</div>
+                <h3>Instagram</h3>
+                <p>@ladangcuancrypto — Tips & edukasi crypto</p>
+            </a>
+            <a href="https://www.tiktok.com/@ladangcuancryptoo" target="_blank" class="community-card tiktok">
+                <div class="icon">🎵</div>
+                <h3>TikTok</h3>
+                <p>@ladangcuancryptoo — Konten crypto seru</p>
+            </a>
+        </div>
+        <div style="text-align:center;margin-top:25px;">
+            <a href="https://wa.me/6289525277026?text=Halo%20kak%2C%20saya%20mau%20konsultasi%20soal%20crypto" target="_blank" class="btn-primary" style="display:inline-block;">💬 Konsultasi / Order via WhatsApp</a>
         </div>
     </section>
 
@@ -469,8 +664,18 @@
 
     <footer>
         <p>&copy; 2026 Ladang Cuan Crypto. All rights reserved.</p>
+        <p style="margin-top:8px;">
+            <a href="https://chat.whatsapp.com/LsWzeV7W2Qv6nFkOwML5h3" target="_blank">WhatsApp</a> •
+            <a href="https://t.me/+gRlrV3myAxtiZDhl" target="_blank">Telegram</a> •
+            <a href="https://www.instagram.com/ladangcuancrypto/" target="_blank">Instagram</a> •
+            <a href="https://www.tiktok.com/@ladangcuancryptoo" target="_blank">TikTok</a>
+        </p>
         <p style="margin-top:5px;font-size:0.75rem;">Pembayaran aman melalui Midtrans 🔒</p>
     </footer>
+
+    <!-- FLOATING WA BUTTON -->
+    <div class="floating-wa-label">Chat / Order 💬</div>
+    <a href="https://wa.me/6289525277026?text=Halo%20kak%2C%20saya%20mau%20tanya%20soal%20ebook%20crypto" target="_blank" class="floating-wa">💬</a>
 
     <div class="modal-overlay" id="modalOverlay">
         <div class="modal">
@@ -616,4 +821,17 @@
                 const res = await fetch('/api/config');
                 const data = await res.json();
                 const script = document.createElement('script');
-                script.src =
+                script.src = 'https://app.sandbox.midtrans.com/snap/snap.js';
+                script.setAttribute('data-client-key', data.clientKey);
+                document.head.appendChild(script);
+            } catch (err) {
+                console.error('Failed to load Midtrans:', err);
+            }
+        }
+
+        loadProducts();
+        loadMidtransSnap();
+        startCountdown();
+    </script>
+</body>
+</html>
