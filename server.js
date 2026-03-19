@@ -30,6 +30,10 @@ const transporter = nodemailer.createTransport({
 });
 
 // GET semua produk
+// Config endpoint
+app.get('/api/config', (req, res) => {
+  res.json({ clientKey: process.env.MIDTRANS_CLIENT_KEY });
+});
 app.get('/api/products', async (req, res) => {
   const { data, error } = await supabase.from('products').select('*');
   if (error) return res.status(500).json({ error });
