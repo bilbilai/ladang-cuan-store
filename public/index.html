@@ -1538,15 +1538,6 @@ function openCheckout(productId, productName) {
     document.getElementById('checkoutModal').style.display = 'flex';
 }
 
-  selectedProductId = productId;
-  document.getElementById('checkoutProductName').textContent = productName;
-  document.getElementById('checkoutModal').style.display = 'flex';
-}
-
-function closeCheckout() {
-  document.getElementById('checkoutModal').style.display = 'none';
-}
-
 async function processCheckout() {
   const name = document.getElementById('buyerName').value;
   const email = document.getElementById('buyerEmail').value;
