@@ -1565,5 +1565,57 @@ async function processCheckout() {
     onError: () => alert('Pembayaran gagal, coba lagi.')
   });
 }
-</script></body>
+</script>
+</body>
 </html>
+<script>
+if (typeof selectedProductId === 'undefined') {
+    var selectedProductId = null;
+}
+
+function openCheckout(productId, productName) {
+    selectedProductId = productId;
+    document.getElementById('checkoutProductName').textContent = productName;
+    document.getElementById('checkoutModal').style.display = 'flex';
+}
+
+function closeCheckout() {
+    document.getElementById('checkoutModal').style.display = 'none';
+}
+
+async function processCheckout() {
+    const name = document.getElementById('buyerName').value;
+    const email = document.getElementById('buyerEmail').value;
+    if (!name || !email) return alert('Isi nama dan email dulu ya!');
+
+    try {
+        const res = await fetch('/api/checkout', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name, email, product_id: selectedProductId })
+        });
+        const data = await res.json();
+
+        if (data.snapToken) {
+            snap.pay(data.snapToken, {
+                onSuccess: function(result) {
+                    alert('Pembayaran berhasil! Cek email lo untuk download ebook.');
+                    closeCheckout();
+                },
+                onPending: function(result) {
+                    alert('Pembayaran pending. Selesaiin pembayaran ya!');
+                },
+                onError: function(result) {
+                    alert('Pembayaran gagal. Coba lagi ya.');
+                },
+                onClose: function() {}
+            });
+        } else {
+            alert('Error: ' + (data.error || 'Terjadi kesalahan'));
+        }
+    } catch (err) {
+        alert('Gagal memproses checkout. Coba lagi!');
+        console.error(err);
+    }
+}
+</script>
