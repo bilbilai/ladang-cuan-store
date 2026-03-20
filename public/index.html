@@ -1533,6 +1533,11 @@ setInterval(fetchLivePrices, 30000);
 let selectedProductId = null;
 
 function openCheckout(productId, productName) {
+    selectedProductId = productId;
+    document.getElementById('checkoutProductName').textContent = productName;
+    document.getElementById('checkoutModal').style.display = 'flex';
+}
+
   selectedProductId = productId;
   document.getElementById('checkoutProductName').textContent = productName;
   document.getElementById('checkoutModal').style.display = 'flex';
