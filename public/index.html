@@ -1596,8 +1596,8 @@ async function processCheckout() {
         });
         const data = await res.json();
 
-        if (data.snapToken) {
-            snap.pay(data.snapToken, {
+        if (data.token) {
+            snap.pay(data.token, {
                 onSuccess: function(result) {
                     alert('Pembayaran berhasil! Cek email lo untuk download ebook.');
                     closeCheckout();
