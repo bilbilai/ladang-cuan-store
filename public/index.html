@@ -1516,7 +1516,7 @@ setInterval(fetchLivePrices, 30000);
 </script>
 
 <!-- CHECKOUT MODAL -->
-<div id="checkoutModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:9999;display:flex;align-items:center;justify-content:center;">
+<div id="checkoutModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:9999;align-items:center;justify-content:center;">
   <div style="background:#1A1A1A;border:1px solid rgba(245,197,24,0.3);padding:48px;max-width:480px;width:90%;position:relative;">
     <button onclick="closeCheckout()" style="position:absolute;top:16px;right:20px;background:none;border:none;color:#888;font-size:20px;cursor:pointer;">✕</button>
     <h2 style="font-family:'Bebas Neue',sans-serif;font-size:32px;color:#F5C518;margin-bottom:8px;">Checkout</h2>
@@ -1559,43 +1559,3 @@ async function processCheckout() {
 </script>
 </body>
 </html>
-<script>
-if (typeof selectedProductId === 'undefined') {
-    var selectedProductId = null;
-}
-
-    const name = document.getElementById('buyerName').value;
-    const email = document.getElementById('buyerEmail').value;
-    if (!name || !email) return alert('Isi nama dan email dulu ya!');
-
-    try {
-        const res = await fetch('/api/checkout', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ name, email, product_id: selectedProductId })
-        });
-        const data = await res.json();
-
-        if (data.token) {
-            snap.pay(data.token, {
-                onSuccess: function(result) {
-                    alert('Pembayaran berhasil! Cek email lo untuk download ebook.');
-                    closeCheckout();
-                },
-                onPending: function(result) {
-                    alert('Pembayaran pending. Selesaiin pembayaran ya!');
-                },
-                onError: function(result) {
-                    alert('Pembayaran gagal. Coba lagi ya.');
-                },
-                onClose: function() {}
-            });
-        } else {
-            alert('Error: ' + (data.error || 'Terjadi kesalahan'));
-        }
-    } catch (err) {
-        alert('Gagal memproses checkout. Coba lagi!');
-        console.error(err);
-    }
-}
-</script>
