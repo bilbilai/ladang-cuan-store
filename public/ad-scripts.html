@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ad Script Manager — Ladang Cuan</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #F5C518;
+    --gold-dim: #C9A010;
+    --gold-glow: #FFD84D;
+    --black: #0A0A0A;
+    --dark: #111111;
+    --dark2: #1A1A1A;
+    --dark3: #222222;
+    --dark4: #2a2a2a;
+    --white: #F0EDE6;
+    --gray: #888880;
+    --gray-light: #555550;
+    --green: #4ade80;
+    --green-dim: #16a34a;
+    --red: #f87171;
+    --red-dim: #dc2626;
+    --blue: #60a5fa;
+    --blue-dim: #2563eb;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    overflow-x: hidden;
+    min-height: 100vh;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; width: 100%; z-index: 100;
+    padding: 16px 32px;
+    display: flex; justify-content: space-between; align-items: center;
+    background: rgba(10,10,10,0.92);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--dark3);
+  }
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px; letter-spacing: 3px;
+    color: var(--gold);
+    text-decoration: none;
+  }
+  .nav-links { display: flex; gap: 24px; align-items: center; }
+  .nav-links a {
+    font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase;
+    color: var(--gray); text-decoration: none;
+    transition: color 0.3s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+  .nav-links a.active { color: var(--gold); }
+
+  @media (max-width: 600px) {
+    nav { padding: 12px 16px; }
+    .nav-links { gap: 12px; }
+    .nav-links a { font-size: 10px; letter-spacing: 1px; }
+  }
+
+  /* MAIN */
+  .main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 100px 24px 60px;
+  }
+
+  /* HEADER */
+  .page-header {
+    margin-bottom: 40px;
+  }
+  .page-header h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    letter-spacing: 4px;
+    color: var(--gold);
+    line-height: 1.1;
+  }
+  .page-header p {
+    color: var(--gray);
+    font-size: 0.9rem;
+    margin-top: 8px;
+    max-width: 600px;
+    line-height: 1.6;
+  }
+
+  /* SCRIPT CARDS LIST */
+  .scripts-grid {
+    display: grid;
+    gap: 16px;
+    margin-bottom: 48px;
+  }
+  .script-card {
+    background: var(--dark);
+    border: 1px solid var(--dark3);
+    border-radius: 12px;
+    padding: 24px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 16px;
+    align-items: center;
+    transition: border-color 0.2s, background 0.2s;
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+  }
+  .script-card:hover {
+    border-color: var(--gold-dim);
+    background: var(--dark2);
+  }
+  .script-card-info h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 4px;
+  }
+  .script-card-meta {
+    display: flex; gap: 16px; flex-wrap: wrap;
+    font-size: 0.75rem; color: var(--gray);
+    letter-spacing: 0.5px;
+  }
+  .script-card-meta span {
+    display: flex; align-items: center; gap: 4px;
+  }
+  .script-card-badge {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    font-weight: 500;
+    padding: 4px 10px;
+    border-radius: 999px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+  }
+  .badge-active { background: rgba(74,222,128,0.15); color: var(--green); }
+  .badge-draft { background: rgba(96,165,250,0.15); color: var(--blue); }
+
+  .script-card-arrow {
+    color: var(--gold-dim);
+    font-size: 1.2rem;
+    transition: transform 0.2s;
+  }
+  .script-card:hover .script-card-arrow { transform: translateX(4px); }
+
+  /* SCRIPT DETAIL VIEW */
+  .script-detail { display: none; }
+  .script-detail.active { display: block; }
+
+  .back-btn {
+    display: inline-flex;
+    align-items: center; gap: 6px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.8rem;
+    color: var(--gray);
+    background: none; border: none;
+    cursor: pointer;
+    padding: 8px 0;
+    margin-bottom: 20px;
+    transition: color 0.2s;
+    letter-spacing: 0.5px;
+  }
+  .back-btn:hover { color: var(--gold); }
+
+  .detail-header {
+    margin-bottom: 24px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--dark3);
+  }
+  .detail-header h2 {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 1.5rem;
+    color: var(--white);
+    margin-bottom: 4px;
+  }
+  .detail-header .ref-link {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--blue);
+    background: rgba(96,165,250,0.1);
+    padding: 4px 10px;
+    border-radius: 6px;
+    display: inline-block;
+    margin-top: 8px;
+    word-break: break-all;
+  }
+
+  /* TOGGLE */
+  .toggle-row {
+    display: flex; gap: 6px; flex-wrap: wrap;
+    margin-bottom: 24px;
+  }
+  .toggle-btn {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 6px 16px;
+    border-radius: 999px;
+    border: 1px solid var(--dark4);
+    background: var(--dark2);
+    color: var(--gray);
+    cursor: pointer;
+    transition: all 0.15s;
+    letter-spacing: 0.3px;
+  }
+  .toggle-btn.active {
+    background: var(--gold);
+    color: var(--black);
+    border-color: var(--gold);
+  }
+  .toggle-btn:hover:not(.active) {
+    border-color: var(--gold-dim);
+    color: var(--gold);
+  }
+
+  /* SECTION ROW */
+  .section-row {
+    background: var(--dark);
+    border: 1px solid var(--dark3);
+    border-radius: 10px;
+    margin-bottom: 12px;
+    overflow: hidden;
+  }
+
+  .section-label {
+    background: var(--dark2);
+    padding: 10px 16px;
+    font-weight: 700;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    border-bottom: 1px solid var(--dark3);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--white);
+  }
+
+  .section-label .badge {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 999px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .badge-hook { background: rgba(74,222,128,0.15); color: var(--green); }
+  .badge-attack { background: rgba(248,113,113,0.15); color: var(--red); }
+  .badge-bridge { background: rgba(96,165,250,0.15); color: var(--blue); }
+  .badge-mechanism { background: rgba(245,197,24,0.15); color: var(--gold); }
+  .badge-cta { background: rgba(245,197,24,0.15); color: var(--gold); }
+
+  .columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 0;
+  }
+  @media (max-width: 700px) {
+    .columns { grid-template-columns: 1fr; }
+    .col + .col { border-top: 1px solid var(--dark3); border-left: none; }
+  }
+  @media (min-width: 701px) {
+    .col + .col { border-left: 1px solid var(--dark3); }
+  }
+
+  .col {
+    padding: 14px 16px;
+    min-width: 0;
+  }
+  .col-header {
+    font-size: 0.625rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--gray);
+    margin-bottom: 6px;
+  }
+  .col p {
+    margin: 0;
+    font-size: 0.8125rem;
+    line-height: 1.65;
+    color: var(--white);
+  }
+
+  .original {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px dashed var(--dark4);
+  }
+  .original-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.55rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--gray-light);
+    margin-bottom: 4px;
+  }
+  .original p {
+    font-size: 0.75rem;
+    color: var(--gray);
+    font-style: italic;
+    line-height: 1.55;
+  }
+
+  .visual-text {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    background: var(--dark2);
+    padding: 6px 10px;
+    border-radius: 6px;
+    margin-top: 8px;
+    line-height: 1.5;
+    color: var(--gray);
+    border: 1px solid var(--dark3);
+  }
+  .visual-text strong {
+    color: var(--gold);
+    font-weight: 500;
+  }
+
+  /* ADD SCRIPT FORM */
+  .add-section {
+    margin-top: 48px;
+    padding: 32px;
+    background: var(--dark);
+    border: 1px dashed var(--dark4);
+    border-radius: 12px;
+    text-align: center;
+  }
+  .add-section h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1rem;
+    color: var(--gray);
+    margin-bottom: 8px;
+  }
+  .add-section p {
+    font-size: 0.8rem;
+    color: var(--gray-light);
+    max-width: 400px;
+    margin: 0 auto;
+    line-height: 1.5;
+  }
+
+  /* STATS BAR */
+  .stats-bar {
+    display: flex; gap: 24px; flex-wrap: wrap;
+    margin-bottom: 32px;
+    padding: 20px 24px;
+    background: var(--dark);
+    border: 1px solid var(--dark3);
+    border-radius: 12px;
+  }
+  .stat-item {
+    display: flex; flex-direction: column; gap: 2px;
+  }
+  .stat-value {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.8rem;
+    color: var(--gold);
+    letter-spacing: 2px;
+    line-height: 1;
+  }
+  .stat-label {
+    font-size: 0.65rem;
+    color: var(--gray);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  /* FOOTER */
+  .page-footer {
+    margin-top: 60px;
+    padding-top: 24px;
+    border-top: 1px solid var(--dark3);
+    text-align: center;
+    color: var(--gray-light);
+    font-size: 0.7rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding-bottom: 32px;
+  }
+  .page-footer span { color: var(--gold); }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">LADANG CUAN</a>
+  <div class="nav-links">
+    <a href="/">Store</a>
+    <a href="/ad-scripts.html" class="active">Ad Scripts</a>
+  </div>
+</nav>
+
+<div class="main">
+  <!-- LIST VIEW -->
+  <div id="listView">
+    <div class="page-header">
+      <h1>AD SCRIPT MANAGER</h1>
+      <p>Breakdown & terjemahan script iklan. Setiap script ada versi Indonesia dan original English-nya buat referensi.</p>
+    </div>
+
+    <div class="stats-bar">
+      <div class="stat-item">
+        <div class="stat-value" id="totalScripts">1</div>
+        <div class="stat-label">Total Scripts</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-value" id="totalSections">16</div>
+        <div class="stat-label">Total Sections</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-value">2</div>
+        <div class="stat-label">Languages</div>
+      </div>
+    </div>
+
+    <div class="scripts-grid" id="scriptsList"></div>
+
+    <div class="add-section">
+      <h3>Tambahin Script Baru</h3>
+      <p>Upload PDF atau masukin data script iklan baru buat di-translate dan di-breakdown di sini.</p>
+    </div>
+  </div>
+
+  <!-- DETAIL VIEW -->
+  <div id="detailView" class="script-detail"></div>
+</div>
+
+<div class="page-footer">
+  <span>Ladang Cuan</span> &mdash; Ad Script Manager
+</div>
+
+<script>
+const scriptsData = [
+  {
+    id: 'botane-55-66',
+    title: 'Botane — Hair Removal Cream',
+    brand: 'Botane Labs',
+    ref: 'https://app.tryatria.com/ad/m4303803829849467',
+    date: '2026-10-07',
+    status: 'active',
+    sections: [
+      {
+        label: 'HOOK A',
+        badge: 'hook',
+        badgeText: 'Hook',
+        scriptId: 'Apa cara terbaik buat grooming area bawah sana tanpa kena bulu tumbuh ke dalam sama razor bumps setiap kali?',
+        scriptEn: 'What is the best way to groom down there without getting ingrown hairs and razor bumps every single time?',
+        visualId: 'Close-up kulit yang nunjukin razor bumps dan bulu tumbuh ke dalam di sekitar area pisang. Pisang berbulu dengan dua telur keliatan langsung. Gelembung komentar putih gaya Q&A media sosial.',
+        visualEn: 'Close-up of skin showing razor bumps and ingrown hairs around the banana area. Hairy banana with two eggs visible immediately. White comment bubble mimicking social media Q&A format.',
+        textId: 'APA CARA TERBAIK BUAT GROOMING AREA BAWAH SANA TANPA BULU TUMBUH KE DALAM DAN RAZOR BUMPS?',
+        textEn: "WHAT'S THE BEST WAY TO GROOM DOWN THERE WITHOUT INGROWN HAIRS AND RAZOR BUMPS?"
+      },
+      {
+        label: 'HOOK B',
+        badge: 'hook',
+        badgeText: 'Hook',
+        scriptId: 'Apa cara terbaik buat bikin pisang lo mulus tanpa benjolan, bulu tumbuh ke dalam, dan rasa gatel yang selalu balik lagi?',
+        scriptEn: 'What is the best way to get your banana smooth without the bumps, ingrowns, and prickle that always come back?',
+        visualId: 'Pisang berbulu sama dengan dua telur. Format gelembung komentar.',
+        visualEn: 'Same hairy banana visual with two eggs. Comment bubble format.',
+        textId: 'APA CARA TERBAIK BUAT BIKIN PISANG LO MULUS TANPA BENJOLAN DAN BULU TUMBUH KE DALAM YANG SELALU BALIK?',
+        textEn: "WHAT'S THE BEST WAY TO GET YOUR BANANA SMOOTH WITHOUT THE BUMPS AND INGROWNS THAT ALWAYS COME BACK?"
+      },
+      {
+        label: 'HOOK C',
+        badge: 'hook',
+        badgeText: 'Hook',
+        scriptId: 'Apa cara terbaik buat manscape area bawah sana?',
+        scriptEn: 'What is the best way to manscape down there?',
+        visualId: 'Pisang berbulu dengan dua telur. Pertanyaan langsung simpel. Jawaban ditahan total. Open loop-nya adalah jawabannya. Penonton tetep nonton buat cari tau.',
+        visualEn: 'Hairy banana with two eggs. Simple direct question. Answer completely withheld. The open loop is the answer. The viewer stays to find out.',
+        textId: 'APA CARA TERBAIK BUAT MANSCAPE AREA BAWAH SANA?',
+        textEn: "WHAT'S THE BEST WAY TO MANSCAPE DOWN THERE?"
+      },
+      {
+        label: 'Attack Laser',
+        badge: 'attack',
+        badgeText: 'Attack',
+        scriptId: 'Laser hair removal? Nggak. Biayanya $200 sampe $400 per sesi dan butuh berbulan-bulan treatment. Nggak semua orang mau bayar appointment cuma buat tetep rapi.',
+        scriptEn: 'Laser hair removal? Nope. It costs $200 to $400 per session and takes months of treatments. Not everyone wants to pay for appointments just to stay groomed.',
+        visualId: 'Teks merah gede: $200–$400 PER SESI. Terus X merah di atas mesin laser. Quick cuts: booking appointment, eksterior klinik, uang keluar.',
+        visualEn: 'Giant red text: $200–$400 PER SESSION. Then red X over laser machine. Quick cuts: appointment booking, clinic exterior, money being spent.',
+        textId: 'TERLALU MAHAL. BERBULAN-BULAN APPOINTMENT.',
+        textEn: 'WAY TOO EXPENSIVE. MONTHS OF APPOINTMENTS.'
+      },
+      {
+        label: 'Attack Waxing',
+        badge: 'attack',
+        badgeText: 'Attack',
+        scriptId: 'Waxing? Nggak. Sakit, butuh appointment setiap 3 minggu, dan begitu lo skip sekali, semuanya balik dari nol.',
+        scriptEn: 'Waxing? Nope. It is painful, it needs appointments every 3 weeks, and the moment you miss one the whole thing resets.',
+        visualId: 'Quick cuts: appointment waxing, cowok kesakitan, kalender dengan appointment ditandai, bulu tumbuh balik setelah skip sesi.',
+        visualEn: 'Quick cuts: waxing appointment, man wincing in pain, calendar with appointments marked, regrowth returning after missed session.',
+        textId: 'SAKIT. APPOINTMENT TIAP 3 MINGGU. SKIP SEKALI? BALIK KE NOL.',
+        textEn: 'PAINFUL. APPOINTMENTS EVERY 3 WEEKS. MISSES ONE? BACK TO SQUARE ONE.'
+      },
+      {
+        label: 'Attack Razor',
+        badge: 'attack',
+        badgeText: 'Attack',
+        scriptId: 'Gimana kalau cukur biasa aja? Nggak. Sekarang kebanyakan cowok udah tau kalau setiap kali pisau cukur motong rambut, dia ninggalin ujung tajam tepat di bawah kulit. Ujung itu yang bikin tumbuh balik kasar dalam 48 jam. Ujung yang sama itu melengkung balik ke kulit dan jadi bulu tumbuh ke dalam. Pisau cukur nggak ngilangin penyebabnya. Justru bikin masalahnya.',
+        scriptEn: 'What about just shaving? Nope. By now most men know that every time a razor cuts a hair it leaves a sharp angled tip just under the skin. That tip is what grows back prickly in 48 hours. That same tip curls back into the skin and becomes the ingrown hair. The razor is not removing the cause. It is creating it.',
+        visualId: 'Animasi close-up pisau cukur motong rambut ninggalin ujung tajam. Ujung tumbuh balik kasar. Ujung melengkung jadi ingrown. X merah di atas pisau cukur.',
+        visualEn: 'Close-up animation of razor slicing hair leaving sharp angled tip. Tip growing back prickly. Tip curling into ingrown. Red X over razor.',
+        textId: 'PISAU CUKUR BIKIN UJUNG TAJAM. UJUNG TAJAM ITU YANG JADI INGROWN.',
+        textEn: 'THE RAZOR CREATES THE SHARP TIP. THE SHARP TIP IS THE INGROWN.'
+      },
+      {
+        label: 'Attack Trimmer',
+        badge: 'attack',
+        badgeText: 'Attack',
+        scriptId: 'Gimana kalau pakai trimmer? Tetep kasar. Tetep nyangkut di mana-mana. Tetep nggak mulus. Trimmer cuma bikin rambut lebih pendek, bukan ilang. Kulitnya tetep nggak bersih.',
+        scriptEn: 'What about a trimmer? Still stubbly. Still catches on everything. Still not smooth. The trimmer just makes the hair shorter not gone. The skin is still not clean.',
+        visualId: 'Trimmer ditunjukin motong di atas permukaan kulit. Stubble masih keliatan. Close-up kulit nunjukin sisa stubble. X merah di atas trimmer.',
+        visualEn: 'Trimmer shown cutting above skin surface. Stubble still visible. Close-up of skin showing stubble remaining. Red X over trimmer.',
+        textId: 'MASIH KASAR. MASIH NYANGKUT DI MANA-MANA. NGGAK MULUS.',
+        textEn: 'STILL STUBBLY. STILL CATCHES ON EVERYTHING. NOT SMOOTH.'
+      },
+      {
+        label: 'Attack Krim Drugstore',
+        badge: 'attack',
+        badgeText: 'Attack',
+        scriptId: 'Gimana kalau krim drugstore kayak Nair? Nggak. Itu diformulasi buat bulu halus kaki cewek. Bukan buat bulu tebal cowok di area bawah sana. Entah formulanya nggak cukup kuat dan ninggalin bercak. Atau lo biarin lebih lama biar kerja dan malah ngebakar kulit yang bukan targetnya.',
+        scriptEn: "What about drugstore creams like Nair? Nope. Those were formulated for women's fine leg hair. Not for men's thick body hair down there. Either the formula is not strong enough and leaves patches. Or you leave it on longer trying to get it to work and it burns skin that was never the target.",
+        visualId: 'Tube Nair ditunjukin. Animasi krim gagal di bulu tebal cowok ninggalin bercak. Atau animasi kulit kebakar menyebar. X merah di atas Nair.',
+        visualEn: 'Nair tube shown. Animation of cream failing on thick male hair leaving patches. Or burn animation spreading. Red X over Nair.',
+        textId: 'DIBUAT BUAT BULU KAKI CEWEK. BUKAN BUAT COWOK DI AREA BAWAH. ENTAH NINGGALIN BERCAK ATAU NGEBAKAR.',
+        textEn: "MADE FOR WOMEN'S LEG HAIR. NOT FOR MEN DOWN THERE. EITHER LEAVES PATCHES OR BURNS."
+      },
+      {
+        label: 'Yang Ngejelasin Kenapa',
+        badge: 'attack',
+        badgeText: 'Transition',
+        scriptId: 'Yang ngejelasin kenapa banyak banget cowok coba metode demi metode dan tetep aja berakhir dengan bulu tumbuh ke dalam, benjolan, dan gatel yang sama setiap kali. Setiap metode yang mereka coba ngatasi rambut di atau di atas permukaan. Nggak ada yang ngilangin penyebabnya.',
+        scriptEn: 'Which explains why so many men try method after method and still end up with the same ingrown hairs, bumps, and prickle every single time. Every method they tried addressed the hair at or above the surface. None of them removed the cause.',
+        visualId: 'Cowok dikelilingi semua metode yang gagal. Capek. Semua X merah ditunjukin bareng.',
+        visualEn: 'Man surrounded by all failed methods. Exhausted. Every red X shown together.',
+        textId: 'YANG NGEJELASIN KENAPA SETIAP METODE TERUS GAGAL. SEMUANYA NGATASI PERMUKAAN. NGGAK ADA YANG NGILANGIN PENYEBABNYA.',
+        textEn: 'WHICH EXPLAINS WHY EVERY METHOD KEEPS FAILING. THEY ALL ADDRESS THE SURFACE. NONE REMOVE THE CAUSE.'
+      },
+      {
+        label: 'Satu Hal Simpel',
+        badge: 'bridge',
+        badgeText: 'Bridge',
+        scriptId: 'Terus apa yang beneran works? Ada satu hal simpel yang bisa dilakuin cowok manapun buat dapetin kulit mulus di bawah sana tanpa razor bumps, bulu tumbuh ke dalam, atau chemical burns. Cuma butuh lima menit di kamar mandi dan hasilnya tahan sampe tujuh hari.',
+        scriptEn: 'So what actually works? There is one simple thing any man can do to get smooth down there without razor bumps, ingrown hairs, or chemical burns. It takes five minutes in the shower and the results last up to seven days.',
+        visualId: 'Dermatologis atau spesialis grooming ngomong ke kamera.',
+        visualEn: 'Dermatologist or grooming specialist speaks to camera.',
+        textId: 'SATU HAL SIMPEL. 5 MENIT DI KAMAR MANDI. MULUS SAMPE 7 HARI.',
+        textEn: 'ONE SIMPLE THING. 5 MINUTES IN THE SHOWER. SMOOTH FOR UP TO 7 DAYS.'
+      },
+      {
+        label: 'Mekanisme Diungkap',
+        badge: 'mechanism',
+        badgeText: 'Mechanism',
+        scriptId: 'Ini namanya root-dissolve grooming. Botane pake ekstrak pepaya buat meluruhkan rambut dari akar, bukan motong di permukaan. Nggak ada pisau yang ninggalin ujung tajam. Nggak ada ujung tajam berarti nggak ada bulu tumbuh ke dalam yang bisa terbentuk. Nggak ada kasar yang tumbuh balik. Rambutnya diluruhkan dari akar, bukan dipotong dari permukaan. Makanya setiap metode lain terus bikin masalah. Semuanya mulai dari permukaan. Botane mulai dari akar.',
+        scriptEn: 'This is called root-dissolve grooming. Botane uses papaya extract to dissolve the hair at the root instead of cutting it at the surface. No blade leaves a sharp tip behind. No sharp tip means no ingrown hair can form. No prickle grows back. The hair is dissolved from the root not cut from the surface. That is why every other method keeps creating the problem. They all start at the surface. Botane starts at the root.',
+        visualId: 'Animasi mekanisme tiga bagian. Pertama: ekstrak pepaya meluruhkan rambut di akar. Kedua: nggak ada pisau keliatan, nggak ada ujung tajam tersisa. Ketiga: hasil bersih mulus tanpa kemungkinan ingrown. Visual kontras di dalam: metode permukaan vs peluruhan akar.',
+        visualEn: 'Three-part mechanism animation. First: papaya extract dissolving hair at root. Second: no blade visible, no sharp tip remaining. Third: clean smooth result with no ingrown possible. Inside visual contrast: surface methods versus root dissolution.',
+        textId: 'ROOT-DISSOLVE GROOMING. EKSTRAK PEPAYA MELURUHKAN DI AKAR. BUKAN DIPOTONG DI PERMUKAAN.',
+        textEn: 'ROOT-DISSOLVE GROOMING. PAPAYA EXTRACT DISSOLVES AT THE ROOT. NOT CUT AT THE SURFACE.'
+      },
+      {
+        label: 'Perlindungan Kulit',
+        badge: 'mechanism',
+        badgeText: 'Benefit',
+        scriptId: 'Plus bahan dasar 30 persen aloe vera melindungi dan menenangkan kulit sementara rambutnya luruh. Nggak ngebakar. Nggak ngelupas. Cuma kulit bersih tenang setelahnya.',
+        scriptEn: 'Plus the 30 percent aloe vera base protects and soothes the skin while the hair dissolves. Not burning it. Not stripping it. Just clean calm skin after.',
+        visualId: 'Animasi bahan dasar aloe vera melapisi kulit saat diaplikasi. Kulit bersih tenang setelahnya. Nggak ada kemerahan.',
+        visualEn: 'Aloe vera base animation coating skin during application. Clean calm skin after. No redness.',
+        textId: 'BAHAN DASAR 30% ALOE VERA. MELINDUNGI KULIT SEMENTARA RAMBUT LURUH.',
+        textEn: '30% ALOE VERA BASE. PROTECTS THE SKIN WHILE THE HAIR DISSOLVES.'
+      },
+      {
+        label: 'Perbandingan Harga',
+        badge: 'bridge',
+        badgeText: 'Anchor',
+        scriptId: 'Treatment laser profesional buat area selangkangan biayanya $200 sampe $400 per sesi. Waxing biayanya $50 sampe $100 setiap tiga minggu. Kabar baiknya, Botane kasih lo hasil mulus yang sama di rumah dengan biaya jauh lebih murah.',
+        scriptEn: 'A professional laser treatment for the groin area costs $200 to $400 per session. Waxing costs $50 to $100 every three weeks. The good news is that Botane gives you the same smooth result at home for a fraction of that cost.',
+        visualId: 'Visual perbandingan harga. $200–$400 laser ditunjukin pakai teks merah. Terus Botane diposisikan sebagai opsi biaya jauh lebih murah.',
+        visualEn: 'Price comparison visual. $200–$400 laser shown with red text. Then Botane positioned as the fraction of cost option.',
+        textId: 'LASER PROFESIONAL: $200–$400 PER SESI. BOTANE: JAUH LEBIH MURAH. DI RUMAH.',
+        textEn: 'PROFESSIONAL LASER: $200–$400 PER SESSION. BOTANE: A FRACTION OF THAT. AT HOME.'
+      },
+      {
+        label: 'Produk Diperkenalkan',
+        badge: 'mechanism',
+        badgeText: 'Product',
+        scriptId: 'Botane adalah krim penghilang bulu pria yang dibuat khusus buat bulu tebal tubuh cowok. Aplikasiin di kamar mandi. Tunggu lima menit. Lap. Mulus sampe tujuh hari. Nggak ada bulu tumbuh ke dalam. Nggak ada razor bumps. Nggak ada chemical burns.',
+        scriptEn: "Botane is a men's hair removal cream built specifically for men's thick body hair. Apply it in the shower. Wait five minutes. Wipe it off. Smooth for up to seven days. No ingrown hairs. No razor bumps. No chemical burns.",
+        visualId: 'Spesialis angkat tube Botane. Cowok di kamar mandi demonstrasi. Lima menit. Lap. Hasil bersih mulus.',
+        visualEn: 'Specialist holds up Botane tube. Man in shower demonstrating. Five minutes. Wipe off. Clean smooth result.',
+        textId: 'APLIKASI. TUNGGU 5 MENIT. LAP. MULUS SAMPE 7 HARI.',
+        textEn: 'APPLY. WAIT 5 MINUTES. WIPE OFF. SMOOTH FOR UP TO 7 DAYS.'
+      },
+      {
+        label: 'Keberatan Dihilangkan',
+        badge: 'mechanism',
+        badgeText: 'Objection',
+        scriptId: 'Nggak perlu appointment. Nggak sakit. Nggak perlu keluar rumah. Dan cuma butuh lima menit, yang mana lebih cepat dari cukur.',
+        scriptEn: 'No appointment needed. No pain. No leaving the house. And it works in five minutes, which is faster than shaving.',
+        visualId: 'Cowok pakai Botane santai di rumah. Rileks. Tanpa drama.',
+        visualEn: 'Man using Botane casually at home. Relaxed. No drama.',
+        textId: 'NGGAK PERLU APPOINTMENT. NGGAK SAKIT. NGGAK PERLU KELUAR RUMAH. LEBIH CEPAT DARI CUKUR.',
+        textEn: 'NO APPOINTMENT. NO PAIN. NO LEAVING THE HOUSE. FASTER THAN SHAVING.'
+      },
+      {
+        label: 'Otoritas',
+        badge: 'bridge',
+        badgeText: 'Authority',
+        scriptId: 'Makanya dermatologis merekomendasiin ini buat cowok yang mau kulit mulus di bawah sana tanpa siklus pisau cukur dan chemical burn.',
+        scriptEn: 'That is why dermatologists recommend it for men who want smooth skin down there without the razor and chemical burn cycle.',
+        visualId: 'Dermatologis ditunjukin megang tube Botane. Ngangguk setuju.',
+        visualEn: 'Dermatologist shown holding Botane tube. Nodding with approval.',
+        textId: 'DIREKOMENDASIIN DERMATOLOGIS.',
+        textEn: 'RECOMMENDED BY DERMATOLOGISTS.'
+      },
+      {
+        label: 'Garansi Sesuai Hasil',
+        badge: 'cta',
+        badgeText: 'Guarantee',
+        scriptId: 'Cobain Botane selama 90 hari. Itu cukup waktu buat liat perbedaannya dan tau kalau ini beneran works. Dan kalau lo nggak puas karena alasan apapun, lo dapet uang balik semuanya.',
+        scriptEn: 'Try Botane for 90 days. That is enough time to see the difference and know it is working. And if you are not happy for any reason you get every penny back.',
+        visualId: 'Cowok pakai Botane dengan percaya diri. Ngecek kulitnya sendiri. Tenang dan bersih.',
+        visualEn: 'Man using Botane confidently. Checking his own skin. Calm and clean.',
+        textId: 'GARANSI UANG KEMBALI 90 HARI. COBAIN TANPA RISIKO.',
+        textEn: '90-DAY MONEY BACK GUARANTEE. TEST IT COMPLETELY RISK FREE.'
+      },
+      {
+        label: 'Call to Action',
+        badge: 'cta',
+        badgeText: 'CTA',
+        scriptId: 'Diskon sampe 60 persen sekarang dengan hadiah gratis senilai 34 dolar. Klik link di bawah buat cobain tanpa risiko sama sekali.',
+        scriptEn: 'Up to 60 percent off right now with 34 dollars worth of free gifts. Click the link below to try it completely risk free.',
+        visualId: 'Close-up tube Botane. botanelabs.com.',
+        visualEn: 'Botane tube close-up. botanelabs.com.',
+        textId: 'DISKON SAMPE 60%. HADIAH GRATIS 34 DOLAR. GARANSI 90 HARI.',
+        textEn: 'UP TO 60% OFF. 34 DOLLARS IN FREE GIFTS. 90-DAY GUARANTEE.'
+      }
+    ]
+  }
+];
+
+let currentLang = 'both';
+
+function renderList() {
+  const list = document.getElementById('scriptsList');
+  list.innerHTML = scriptsData.map(s => `
+    <a class="script-card" onclick="openScript('${s.id}')">
+      <div class="script-card-info">
+        <h3>${s.title}</h3>
+        <div class="script-card-meta">
+          <span>${s.brand}</span>
+          <span>${s.sections.length} sections</span>
+          <span>${s.date}</span>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <span class="script-card-badge ${s.status === 'active' ? 'badge-active' : 'badge-draft'}">${s.status}</span>
+        <span class="script-card-arrow">→</span>
+      </div>
+    </a>
+  `).join('');
+}
+
+function openScript(id) {
+  const script = scriptsData.find(s => s.id === id);
+  if (!script) return;
+
+  document.getElementById('listView').style.display = 'none';
+  const detail = document.getElementById('detailView');
+  detail.classList.add('active');
+
+  detail.innerHTML = `
+    <button class="back-btn" onclick="closeDetail()">← Kembali ke daftar</button>
+    <div class="detail-header">
+      <h2>${script.title}</h2>
+      <div class="ref-link">${script.ref}</div>
+    </div>
+    <div class="toggle-row">
+      <button class="toggle-btn ${currentLang==='id'?'active':''}" onclick="switchLang('id', this)">Terjemahan (ID)</button>
+      <button class="toggle-btn ${currentLang==='both'?'active':''}" onclick="switchLang('both', this)">Keduanya</button>
+      <button class="toggle-btn ${currentLang==='en'?'active':''}" onclick="switchLang('en', this)">Original (EN)</button>
+    </div>
+    ${script.sections.map(sec => renderSection(sec)).join('')}
+  `;
+
+  applyLang();
+  window.scrollTo(0, 0);
+}
+
+function renderSection(sec) {
+  return `
+    <div class="section-row">
+      <div class="section-label">
+        <span class="badge badge-${sec.badge}">${sec.badgeText}</span>
+        ${sec.label}
+      </div>
+      <div class="columns">
+        <div class="col">
+          <div class="col-header">Script</div>
+          <p class="text-id">${sec.scriptId}</p>
+          <div class="original">
+            <div class="original-label">Original (EN)</div>
+            <p class="text-en">${sec.scriptEn}</p>
+          </div>
+        </div>
+        <div class="col">
+          <div class="col-header">Visual</div>
+          <p class="text-id">${sec.visualId}</p>
+          <div class="visual-text"><strong>Text:</strong> ${sec.textId}</div>
+          <div class="original">
+            <div class="original-label">Original (EN)</div>
+            <p class="text-en">${sec.visualEn}</p>
+            <div class="visual-text"><strong>Text:</strong> ${sec.textEn}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function closeDetail() {
+  document.getElementById('listView').style.display = 'block';
+  const detail = document.getElementById('detailView');
+  detail.classList.remove('active');
+  detail.innerHTML = '';
+  window.scrollTo(0, 0);
+}
+
+function switchLang(lang, btn) {
+  currentLang = lang;
+  document.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  applyLang();
+}
+
+function applyLang() {
+  const idEls = document.querySelectorAll('#detailView .text-id');
+  const originals = document.querySelectorAll('#detailView .original');
+
+  if (currentLang === 'id') {
+    idEls.forEach(el => el.style.display = '');
+    originals.forEach(el => el.style.display = 'none');
+  } else if (currentLang === 'en') {
+    idEls.forEach(el => el.style.display = 'none');
+    originals.forEach(el => {
+      el.style.display = '';
+      el.style.borderTop = 'none';
+      el.style.marginTop = '0';
+      el.style.paddingTop = '0';
+    });
+  } else {
+    idEls.forEach(el => el.style.display = '');
+    originals.forEach(el => {
+      el.style.display = '';
+      el.style.borderTop = '';
+      el.style.marginTop = '';
+      el.style.paddingTop = '';
+    });
+  }
+}
+
+renderList();
+</script>
+</body>
+</html>
