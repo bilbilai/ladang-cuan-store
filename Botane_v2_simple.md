@@ -3,7 +3,12 @@
 ## Cara kerja
 1. VO full dari ElevenLabs langsung lo taruh di CapCut sebagai track utama.
 2. Semua video di-generate **tanpa suara** dan ditaruh di atas VO.
-3. **Pengecualian:** clip dokter yang ditandai **LIP-SYNC**. Untuk clip ini, potong **cuma kalimat itu** dari VO lo, lalu attach sebagai @Audio1. Jangan attach VO full.
+3. **Pengecualian:** clip dokter (A1–A7) dibuat **ngomong sendiri**. Dialognya ditulis di prompt, suaranya di-generate langsung oleh model video, dan **tanpa attach audio**. Di CapCut, **mute VO selama clip dokter** dan pakai audio asli clip itu. Jadi dokter punya suara sendiri yang beda dari narator VO.
+
+**Kunci suara dokter (tempel di semua clip A1–A7 biar suaranya konsisten):**
+```
+DOCTOR VOICE: male, mid-40s, natural General American accent, warm low-mid pitch, calm and conversational like talking to a patient, slightly raspy, recorded on a cheap lavalier mic in a small room — light room echo, not studio-clean, not announcer voice, not British. Speaks only the exact dialogue below, word for word. No music, no other voices.
+```
 4. Base image cuma 2:
    - **Klinik dokter**: udah lo punya.
    - **Bathroom**: prompt-nya ada di bawah.
@@ -52,9 +57,9 @@ Top-down handheld phone shot of a ripe banana covered in glued-on dark curly hai
 Bubble komentar dan panah dibikin di CapCut.
 
 ### Attack laser
-**A1 · LIP-SYNC dokter** · attach `CLINIC` + `DOC` + @Audio1 = *"Laser hair removal? Nope."*
+**A1 · DOKTER NGOMONG** · attach `CLINIC` + `DOC` · tanpa audio
 ```
-The doctor from the reference image, same clinic, same white coat, speaks the attached line to the phone camera on a tripod. Slight eyebrow raise on the question, small head shake and a short dismissive hand wave on "Nope." Lip-sync to the audio exactly. Static framing, micro-drift only. [LOOK]
+The doctor from the reference image, same clinic, same white coat, talks to the phone camera on a tripod. Slight eyebrow raise on the question, small head shake and a short dismissive hand wave on "Nope." He says: "Laser hair removal? Nope." Mouth clearly visible, lip-sync matches his own speech. [DOCTOR VOICE] Static framing, micro-drift only. [LOOK]
 ```
 **B1 · T2V · 2s** — "It costs two hundred to four hundred dollars per session"
 ```
@@ -84,9 +89,9 @@ Close-up of a man's hairy forearm with patchy regrown stubble, he scratches it, 
 ```
 
 ### Attack razor
-**A2 · LIP-SYNC dokter** · `CLINIC` + `DOC` + @Audio1 = *"What about just shaving? Nope."*
+**A2 · DOKTER NGOMONG** · `CLINIC` + `DOC` · tanpa audio
 ```
-Same doctor, same clinic. He tilts his head slightly on the question, then "Nope." with a firm small shake and open palm. Lip-sync exactly to the audio. Static, micro-drift. [LOOK]
+Same doctor, same clinic. He tilts his head slightly on the question, then "Nope." with a firm small shake and open palm. He says: "What about just shaving? Nope." Mouth clearly visible, lip-sync matches his own speech. [DOCTOR VOICE] Static, micro-drift. [LOOK]
 ```
 **B7 · T2V · 6s** — "...sharp angled tip ... becomes the ingrown hair"
 ```
@@ -122,16 +127,16 @@ Black-and-white. Same man and bathroom as the reference, but the product is NOT 
 ```
 
 ### Bridge
-**A3 · LIP-SYNC dokter** · `CLINIC` + `DOC` + @Audio1 = *"So what actually works? There is one simple thing any man can do to get smooth down there without razor bumps, ingrown hairs, or chemical burns."*
+**A3 · DOKTER NGOMONG** · `CLINIC` + `DOC` · tanpa audio
 ```
-Same doctor, same clinic. He leans in slightly, raises one finger on "one simple thing", then rests his hands together. Calm, friendly, like explaining to a patient. Lip-sync exactly to the audio. [LOOK]
+Same doctor, same clinic. He leans in slightly, raises one finger on "one simple thing", then rests his hands together. Calm, friendly, like explaining to a patient. He says: "So what actually works? There is one simple thing any man can do to get smooth down there without razor bumps, ingrown hairs, or chemical burns." Mouth clearly visible, lip-sync matches his own speech. [DOCTOR VOICE] [LOOK]
 ```
 Sisa kalimat ("It takes five minutes in the shower...") di-cover pakai B14.
 
 ### Mechanism
-**A4 · LIP-SYNC dokter** · `CLINIC` + `DOC` + @Audio1 = *"This is called root-dissolve grooming."*
+**A4 · DOKTER NGOMONG** · `CLINIC` + `DOC` · tanpa audio
 ```
-Same doctor, same clinic. He half-turns and points at the skin anatomy poster behind him, then back to camera. Lip-sync exactly. [LOOK]
+Same doctor, same clinic. He half-turns and points at the skin anatomy poster behind him, then back to camera. He says: "This is called root-dissolve grooming." Mouth clearly visible, lip-sync matches his own speech. [DOCTOR VOICE] [LOOK]
 ```
 **B13 · T2V · 6s** — "Botane uses papaya extract to dissolve the hair at the root"
 ```
@@ -156,9 +161,9 @@ The product from the reference stands on a white bathroom counter next to a toot
 ```
 
 ### Product introduced
-**A5 · LIP-SYNC dokter** · `CLINIC` + `DOC` + `PROD` + @Audio1 = *"Botane is a men's hair removal cream built specifically for men's thick body hair."*
+**A5 · DOKTER NGOMONG** · `CLINIC` + `DOC` + `PROD` · tanpa audio
 ```
-Same doctor, same clinic. He lifts the product from the product reference to chest height in his right hand, label toward camera, and keeps it there while speaking. Lip-sync exactly. [PRODUCT LOCK] [LOOK]
+Same doctor, same clinic. He lifts the product from the product reference to chest height in his right hand, label toward camera, and keeps it there while speaking. He says: "Botane is a men's hair removal cream built specifically for men's thick body hair." Mouth clearly visible, lip-sync matches his own speech. [DOCTOR VOICE] [PRODUCT LOCK] [LOOK]
 ```
 **B18 · I2V** · `BATH` + `PROD` · 4s — "Apply it in the shower."
 ```
@@ -186,9 +191,9 @@ Same man, same bathroom, now in a grey t-shirt. He glances at his reflection, ha
 ```
 
 ### Authority
-**A6 · LIP-SYNC dokter** · `CLINIC` + `DOC` + `PROD` + @Audio1 = *"That is why dermatologists recommend it for men who want smooth skin down there without the razor and chemical burn cycle."*
+**A6 · DOKTER NGOMONG** · `CLINIC` + `DOC` + `PROD` · tanpa audio
 ```
-Same doctor, same clinic, holding the product at chest height. Slow approving nods while speaking, calm confident expression. Lip-sync exactly. [PRODUCT LOCK] [LOOK]
+Same doctor, same clinic, holding the product at chest height. Slow approving nods while speaking, calm confident expression. He says: "That is why dermatologists recommend it for men who want smooth skin down there without the razor and chemical burn cycle." Mouth clearly visible, lip-sync matches his own speech. [DOCTOR VOICE] [PRODUCT LOCK] [LOOK]
 ```
 
 ### Guarantee
@@ -202,9 +207,9 @@ A man in a grey t-shirt and shorts takes a mirror selfie in a small home bathroo
 ```
 The product from the reference on a wet white tile ledge with water droplets, handheld phone slowly circling 20 degrees, soft daylight. [PRODUCT LOCK] [LOOK]
 ```
-**A7 · LIP-SYNC dokter** · `CLINIC` + `DOC` + `PROD` + @Audio1 = *"Click the link below to try it completely risk free."*
+**A7 · DOKTER NGOMONG** · `CLINIC` + `DOC` + `PROD` · tanpa audio
 ```
-Same doctor, same clinic, product in hand. Warm smile, small nod downward on "link below". Lip-sync exactly. [PRODUCT LOCK] [LOOK]
+Same doctor, same clinic, product in hand. Warm smile, small nod downward on "link below". He says: "Click the link below to try it completely risk free." Mouth clearly visible, lip-sync matches his own speech. [DOCTOR VOICE] [PRODUCT LOCK] [LOOK]
 ```
 
 ---
@@ -212,12 +217,13 @@ Same doctor, same clinic, product in hand. Warm smile, small nod downward on "li
 ## Ringkasan
 | Tipe | Jumlah | Attach |
 |---|---|---|
-| Lip-sync dokter | 7 (A1–A7) | CLINIC + DOC (+PROD di A5–A7) + potongan VO |
+| Dokter ngomong (suara sendiri) | 7 (A1–A7) | CLINIC + DOC (+PROD di A5–A7), tanpa audio |
 | I2V produk/bathroom | 7 | BATH dan/atau PROD |
 | T2V | 18 | tanpa ref |
 
-**Urutan test:** A3 (lip-sync paling panjang) → B18 (produk di tangan) → sisanya.
+**Urutan test:** A3 (dialog dokter paling panjang) → B18 (produk di tangan) → sisanya.
 
 **Catatan jujur:**
+- Suara dokter yang di-generate model bisa sedikit beda antar clip walaupun pakai blok DOCTOR VOICE yang sama. Kalau terlalu beda, pakai clip A3 sebagai patokan dan generate ulang yang paling melenceng. Opsi lain: samakan suaranya pakai Voice Changer ElevenLabs.
 - Label "BOTANE MAN+" kemungkinan tetap sedikit berubah di video AI. Kalau rusak, tempel ulang PNG label/produk asli di CapCut buat shot close-up.
 - Klaim "Safe for intimate areas" & "dermatologists recommend" tetap jadi risiko compliance seperti di pack v1.
