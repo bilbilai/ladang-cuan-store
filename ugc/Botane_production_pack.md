@@ -10,6 +10,20 @@ Script: Botane 55–66 (Girlfriend / "boyfriend stole my cream").
 - Workflow simpel: **Maya (pacar) = semua A-roll ngomong.** Jake (cowok) cuma B-roll tanpa dialog. Semua animasi = text-to-video, ditimpa di edit di atas suara A-roll.
 - Semua TEXT OVERLAY dari script masuk di **edit (CapCut)**, BUKAN di prompt (teks AI pasti rusak).
 
+## Visual script → shot (dicek 1:1)
+
+| Section | Visual di script | Dibikin jadi |
+|---|---|---|
+| Hook A/B/C | Girlfriend to camera (breathless / flustered / curious) | Maya ngomong ke kamera, **tanpa produk** |
+| Story opens | Cerita santai, Botane shown casually "just right there" | Maya to camera + insert botol nongol santai di nightstand |
+| What she noticed | Girlfriend explaining + animasi rambut halus vs tebal, formula gagal, patches / burn | Maya to camera (Clip 3–4) + ANIM-1, ANIM-2, ANIM-3 |
+| The big reaction | Researching on phone, lalu holding up Botane | Insert HP + Maya ngangkat botol |
+| She asks him | Holding Botane explaining + animasi pepaya | Maya pegang botol + ANIM-4 |
+| What it actually is | Animasi aloe coating skin, kulit kalem | ANIM-5 (suara dari A-roll Clip 6) |
+| Wrongly accused | Girlfriend recounting + him checking skin, surprised | Maya to camera + BR-2 |
+| The mechanism | Girlfriend smug + him with own Botane, her eyeing it | Maya smug + BR-3 |
+| The close | Girlfriend holds up Botane | Maya ngangkat botol ke kamera |
+
 ## Ringkasan
 
 | Item | Jumlah |
@@ -18,15 +32,15 @@ Script: Botane 55–66 (Girlfriend / "boyfriend stole my cream").
 | Product sheet | 1 |
 | Base image | 2 (BASE-1 kamar Maya, BASE-2 kamar mandi berdua) |
 | A-roll Wan | 3 hook + 6 body = 9 clip |
-| B-roll Wan | 4 (BR-1 & BR-4 opsional) |
+| B-roll Wan | 3 (BR-1 phone, BR-2 Jake cek kulit, BR-3 Jake + botol) |
 | Animasi (text-to-video) | 5 |
 
-**Versi paling hemat:** Maya sheet + product sheet + BASE-1 → semua A-roll (1 hook + clip 2–7) + ANIM-2, ANIM-4, ANIM-5. Jake sheet + BASE-2 cuma perlu buat BR-2/BR-3.
+**Versi paling hemat:** Maya sheet + BASE-1 → hook; + product sheet → clip 2–7 + ANIM-2, ANIM-4, ANIM-5. Jake sheet + BASE-2 cuma perlu buat BR-2/BR-3.
 
 ## Workflow (urut)
 1. Generate **product sheet** (upload gambar 1 sebagai referensi) → GPT Image 2.
 2. Generate **Maya sheet** & **Jake sheet** → GPT Image 2.
-3. Generate **BASE-1** (Maya sheet + product sheet) dan **BASE-2** (Maya + Jake + product).
+3. Generate **BASE-1** (Maya sheet aja) dan **BASE-2** (Maya + Jake + product).
 4. Siapin **@Audio1**: rekaman/TTS suara cewek US 20-an, 10–20 detik, nada santai (cuma buat timbre, isi kalimatnya bebas).
 5. Wan 3.0: A-roll clip per clip → B-roll → animasi.
 6. Edit: susun Hook → Clip 2–7, timpa animasi/B-roll, tambahin text overlay + subtitle.
@@ -45,8 +59,8 @@ Script: Botane 55–66 (Girlfriend / "boyfriend stole my cream").
 
 | Clip | Section | @Image1 | Durasi | Produk | Timpa di edit (B-roll / text) |
 |---|---|---|---|---|---|
-| 1A/1B/1C | Hook A/B/C | BASE-1 | ~10 s | 1A ya | Text hook sesuai script |
-| 2 | Story opens | BASE-1 | ~20 s | – (tube pink polos) | — |
+| 1A/1B/1C | Hook A/B/C | BASE-1 | ~10 s | – (to camera aja) | Text hook sesuai script |
+| 2 | Story opens | BASE-1 | ~20 s | ya, nongol santai di nightstand | — |
 | 3 | What she noticed 1 | BASE-1 | ~19 s | – | ANIM-1, ANIM-2 · text "MADE FOR WOMEN'S FINE LEG HAIR…" |
 | 4 | What she noticed 2 + Big reaction | BASE-1 | ~22 s | ya | ANIM-2/ANIM-3, (BR-1) · text "EITHER LEAVES PATCHES OR BURNS" & "I FOUND A CREAM…" |
 | 5 | She asks him | BASE-1 | ~20 s | ya | ANIM-4 · text "STRONG ENOUGH…" |
@@ -90,16 +104,14 @@ Neutral soft studio light, raw photo, no retouching, no text.
 
 ## Bagian 2 — Base images (GPT Image 2)
 
-### BASE-1 — Maya di kasur, kamar apartemen (dipakai: SEMUA A-roll + BR-1, BR-4)
-Kenapa perlu: ini anchor semua A-roll. Belum ada.
+### BASE-1 — Maya di kasur, kamar apartemen (dipakai: SEMUA A-roll + BR-1)
+Kenapa perlu: ini anchor semua A-roll. **Tanpa produk** — hook di script cuma "girlfriend to camera"; produk baru masuk lewat @Image3 mulai Clip 2.
 ```
 REFERENCE IMAGES:
 - Image 1 = Maya character sheet: face, hair, body, wardrobe.
-- Image 2 = Botane product sheet: copy the bottle design exactly.
 
-SCENE: a casual selfie-style video frame. Maya sits cross-legged on her unmade bed, leaning slightly toward the phone, mid-thought, relaxed half-smile, mouth closed. Hands resting loosely on her knees. The Botane bottle lies casually on the duvet next to her right hip, partly visible. A plain soft-pink squeeze tube (no text, no logo) lies near her left knee.
+SCENE: a casual selfie-style video frame. Maya sits cross-legged on her unmade bed, leaning slightly toward the phone, mid-thought, relaxed half-smile, mouth closed. Hands resting loosely on her knees, nothing in her hands.
 CHARACTER: Maya, American woman 26-29, light-medium warm skin with visible pores, a few faint freckles across the nose, slight under-eye shadows, natural brows; shoulder-length dark-brown wavy hair, a bit messy, tucked behind one ear; slim-average build; wearing oversized faded sage-grey crewneck sweatshirt (slightly pilled cotton), small thin gold hoop earrings in both ears, thin black hair tie on the left wrist, no other jewellery, no makeup except a little lip balm, light-wash jeans.
-PRODUCT: Botane MAN+ bottle, exact copy of image 2, lying on its side on the duvet, label partly visible.
 LOCATION: small American apartment bedroom. Rumpled off-white waffle duvet, two slept-on pillows, a mustard throw blanket bunched at the corner; behind her a light wood headboard and a white wall with a slightly crooked framed print; a cheap wooden nightstand with a phone charger cable, a half-drunk iced coffee in a plastic cup, a hair clip. Lived-in, a bit messy, NOT styled. No plants overload, no fairy lights.
 FRAMING: phone propped on the bed facing her at chest height, about 1 m away, slightly below eye level; she is centred, head to waist, headroom small, a bit off-centre like a real self-recording.
 LIGHTING (most important): late-afternoon daylight from a window to camera-left, soft and warm-neutral (~4800K), falling off into soft shadow on the right side of her face; room slightly underexposed; no ring light, no fill light, no rim light.
@@ -132,7 +144,7 @@ FORMAT: vertical 9:16.
 ## Bagian 3 — Wan A-roll
 
 ### CLIP 1A — HOOK A (~10 s)
-**Slot:** @Image1 = BASE-1 · @Image2 = Maya sheet · @Image3 = product sheet · @Audio1 = voice
+**Slot:** @Image1 = BASE-1 · @Image2 = Maya sheet · @Audio1 = voice
 
 ```
 Reference-based video generation, vertical 9:16, about 10 seconds (hard maximum 30 seconds), 2 shots with hard cuts.
@@ -140,7 +152,6 @@ Reference-based video generation, vertical 9:16, about 10 seconds (hard maximum 
 ROLE MAPPING — DO NOT CHANGE:
 @Image1 is the BASE IMAGE — the scene master for every shot. NOT a start frame, NOT an end frame. It defines location, layout, props, lighting, colour grade, shadows, wardrobe, jewellery, hair and body. A shot may change framing only where it says so; room, light and wardrobe never change.
 @Image2 is the FACE REFERENCE only (Maya): facial structure, eyes, nose, lips, jaw, freckles, skin texture, age. Do not copy its grey studio background, studio lighting or clothing.
-@Image3 is the PRODUCT REFERENCE (Botane MAN+ bottle): slim cylindrical bottle, about 15 cm tall, matte muted sage-green body (soft-touch finish); white collar ring at the neck; silver-grey airless pump head with a short side-facing nozzle; clear transparent dome over-cap covering the pump; front label printed in off-white: serif wordmark at the top, a thin line-drawing of an aloe vera plant in the middle, small text lines and three check-mark lines below, small volume text at the bottom. Copy exactly whenever the product appears. Ignore its white background and studio light; the product is lit by @Image1.
 @Audio1 is the VOICE REFERENCE: timbre, pitch and energy only. ACCENT OVERRIDE — THIS TAKES PRIORITY OVER @Audio1: natural General American accent, woman in her late twenties, casual conversational register like talking to a friend on FaceTime. Not British, not Australian, not Indonesian-accented, not an advert/announcer voice. Speaks the exact DIALOGUE in English word for word. In INSERT shots the voice continues off-screen: same voice, same accent, same close-mic sound.
 
 CAMERA: vertical 9:16, phone look. ON CAMERA = phone propped on the bed facing her at chest height as framed in @Image1, unless the shot says closer; micro-drift only. INSERT = handheld close-up in the same room. No zoom, pan, tilt, dolly or cinematic moves. Raw, amateur, slightly underexposed, TikTok-native.
@@ -165,18 +176,17 @@ Dialogue: "My boyfriend kept stealing my hair removal cream and getting chemical
 SHOT 2 — 0:06-0:10 · ON CAMERA (lip-sync)
 Framing: medium shot, head to waist, as in @Image1
 Mood: decisive, a bit proud
-Expression: small knowing smile
+Expression: small knowing smile, slight shrug
 Voice: slower, landing the line
-Body: lifts the Botane bottle from her lap into frame at chest height, label facing camera, holds still
+Body: hands stay relaxed on her knees, one small nod on 'instead'; nothing in her hands
 Dialogue: "So I got him this instead."
 Hard cut between each shot.
 
-PRONUNCIATION: Botane = BOH-tahn (two syllables, stress on first).
+PRONUNCIATION: none special.
 
 LOCKS:
-- @Image1 is the base for the whole clip. Face from @Image2 only. Product from @Image3 only.
+- @Image1 is the base for the whole clip. Face from @Image2 only.
 - Room, window light, bedding, wardrobe (sage-grey sweatshirt, small gold hoops, black hair tie left wrist), hair identical to @Image1.
-- PRODUCT LOCK: identical to @Image3 whenever visible — sage-green matte bottle, white collar, silver pump, clear dome cap, same proportions. No redesign, recolour, resize, no new text or logo, never turned into a tube.
 - No extra people. No on-screen text, captions, subtitles or music. No objects beyond @Image1 and those named in the shots.
 - Natural skin: pores, freckles, fine lines. No smoothing, no AI sheen, no beauty filter.
 - Lip-sync matches the exact English dialogue, General American accent, @Audio1 voice identity.
@@ -281,7 +291,7 @@ LOCKS:
 ```
 
 ### CLIP 2 — Story opens (~20 s)
-**Slot:** @Image1 = BASE-1 · @Image2 = Maya sheet · @Audio1 = voice
+**Slot:** @Image1 = BASE-1 · @Image2 = Maya sheet · @Image3 = product sheet · @Audio1 = voice
 
 ```
 Reference-based video generation, vertical 9:16, about 20 seconds (hard maximum 30 seconds), 3 shots with hard cuts.
@@ -289,6 +299,7 @@ Reference-based video generation, vertical 9:16, about 20 seconds (hard maximum 
 ROLE MAPPING — DO NOT CHANGE:
 @Image1 is the BASE IMAGE — the scene master for every shot. NOT a start frame, NOT an end frame. It defines location, layout, props, lighting, colour grade, shadows, wardrobe, jewellery, hair and body. A shot may change framing only where it says so; room, light and wardrobe never change.
 @Image2 is the FACE REFERENCE only (Maya): facial structure, eyes, nose, lips, jaw, freckles, skin texture, age. Do not copy its grey studio background, studio lighting or clothing.
+@Image3 is the PRODUCT REFERENCE (Botane MAN+ bottle): slim cylindrical bottle, about 15 cm tall, matte muted sage-green body (soft-touch finish); white collar ring at the neck; silver-grey airless pump head with a short side-facing nozzle; clear transparent dome over-cap covering the pump; front label printed in off-white: serif wordmark at the top, a thin line-drawing of an aloe vera plant in the middle, small text lines and three check-mark lines below, small volume text at the bottom. Copy exactly whenever the product appears. Ignore its white background and studio light; the product is lit by @Image1.
 @Audio1 is the VOICE REFERENCE: timbre, pitch and energy only. ACCENT OVERRIDE — THIS TAKES PRIORITY OVER @Audio1: natural General American accent, woman in her late twenties, casual conversational register like talking to a friend on FaceTime. Not British, not Australian, not Indonesian-accented, not an advert/announcer voice. Speaks the exact DIALOGUE in English word for word. In INSERT shots the voice continues off-screen: same voice, same accent, same close-mic sound.
 
 CAMERA: vertical 9:16, phone look. ON CAMERA = phone propped on the bed facing her at chest height as framed in @Image1, unless the shot says closer; micro-drift only. INSERT = handheld close-up in the same room. No zoom, pan, tilt, dolly or cinematic moves. Raw, amateur, slightly underexposed, TikTok-native.
@@ -311,8 +322,8 @@ Body: shrugs one shoulder on 'a few times'
 Dialogue: "So he tried mine a few times. I use it on my legs. He uses it down there."
 
 SHOT 2 — 0:07-0:12 · INSERT (voice-over, no lip-sync)
-Framing: handheld close-up of her hand on the duvet beside her knee
-Action: her hand picks up the plain soft-pink squeeze tube (no text, no logo), turns it over once, sets it down. Slow, casual.
+Framing: handheld close-up of the wooden nightstand beside the bed, same window light
+Action: the Botane bottle (exact @Image3) stands casually on the nightstand next to the iced coffee and charger cable, just sitting there like an everyday object; her hand rests near it for a moment, fingers brushing past it, then moves away. Nothing is presented to camera.
 Voice: continues, slightly lower
 Voice-over: "And every time he ends up with burns and irritation for days after."
 
@@ -328,12 +339,12 @@ Hard cut between each shot.
 PRONUNCIATION: none special.
 
 LOCKS:
-- @Image1 is the base for the whole clip. Face from @Image2 only.
+- @Image1 is the base for the whole clip. Face from @Image2 only. Product from @Image3 only.
 - Room, window light, bedding, wardrobe (sage-grey sweatshirt, small gold hoops, black hair tie left wrist), hair identical to @Image1.
+- PRODUCT LOCK: identical to @Image3 whenever visible — sage-green matte bottle, white collar, silver pump, clear dome cap, same proportions. No redesign, recolour, resize, no new text or logo, never turned into a tube.
 - No extra people. No on-screen text, captions, subtitles or music. No objects beyond @Image1 and those named in the shots.
 - Natural skin: pores, freckles, fine lines. No smoothing, no AI sheen, no beauty filter.
 - Lip-sync matches the exact English dialogue, General American accent, @Audio1 voice identity.
-- PROP LOCK: Her own women's cream is a plain soft-pink squeeze tube with a white flip cap and NO readable text or logo.
 ```
 
 ### CLIP 3 — What she noticed (part 1) (~19 s)
@@ -366,11 +377,13 @@ Voice: even, teacher-friend tone
 Body: one hand gestures lightly at her own shin area on 'leg hair'
 Dialogue: "My cream is formulated for women's fine leg hair. The hair there is thin and soft."
 
-SHOT 2 — 0:08-0:13 · INSERT (voice-over, no lip-sync)
-Framing: handheld close-up of her forearm/hand resting on the duvet, soft window light
-Action: her fingertips lightly rub the pink tube's cap, then let go — nothing else moves
-Voice: same voice, continues
-Voice-over: "The formula dissolves it easily without needing to be very strong."
+SHOT 2 — 0:08-0:13 · ON CAMERA (lip-sync)
+Framing: medium shot, head to waist, as in @Image1
+Mood: explaining
+Expression: calm, small nod
+Voice: even
+Body: one hand makes a small 'easy' flick, then rests
+Dialogue: "The formula dissolves it easily without needing to be very strong."
 
 SHOT 3 — 0:13-0:19 · ON CAMERA (lip-sync)
 Framing: closer, head to chest, same angle and light as @Image1
@@ -389,7 +402,6 @@ LOCKS:
 - No extra people. No on-screen text, captions, subtitles or music. No objects beyond @Image1 and those named in the shots.
 - Natural skin: pores, freckles, fine lines. No smoothing, no AI sheen, no beauty filter.
 - Lip-sync matches the exact English dialogue, General American accent, @Audio1 voice identity.
-- PROP LOCK: Her own women's cream is a plain soft-pink squeeze tube with a white flip cap and NO readable text or logo.
 ```
 
 ### CLIP 4 — What she noticed (part 2) + Big reaction (~22 s)
@@ -481,18 +493,20 @@ Voice: clear, unhurried
 Body: holds the Botane bottle at chest height, label to camera, a small tilt toward lens on 'papaya'
 Dialogue: "Botane uses papaya extract to dissolve the hair at the root."
 
-SHOT 2 — 0:06-0:13 · INSERT (voice-over, no lip-sync)
-Framing: handheld close-up of the bottle in her right hand, she takes off the clear dome cap with the other hand
-Action: removes the clear cap, presses the silver pump once, a pea-sized dollop of smooth pale off-white cream lands on her fingertip; holds it toward camera
+SHOT 2 — 0:06-0:13 · ON CAMERA (lip-sync)
+Framing: closer, head to chest, same angle and light as @Image1
+Mood: warm, sincere
+Expression: soft eyes, small nod
 Voice: continues, warm
-Voice-over: "Strong enough for men's thick body hair. But gentle enough for the sensitive skin down there."
+Body: still holding the Botane bottle at chest height, cap on, label facing camera; free hand rests
+Dialogue: "Strong enough for men's thick body hair. But gentle enough for the sensitive skin down there."
 
 SHOT 3 — 0:13-0:20 · ON CAMERA (lip-sync)
 Framing: closer, head to chest, same angle and light as @Image1
 Mood: convinced, ticking off points
 Expression: slight nods
 Voice: rhythmic, short beats
-Body: counts on fingers, one finger per 'No'
+Body: bottle still in one hand at chest height; counts on the fingers of the free hand, one finger per 'No'
 Dialogue: "No burns. No patches left behind. No sharp tip left on any hair to grow back prickly or curl back into an ingrown."
 Hard cut between each shot.
 
@@ -505,7 +519,6 @@ LOCKS:
 - No extra people. No on-screen text, captions, subtitles or music. No objects beyond @Image1 and those named in the shots.
 - Natural skin: pores, freckles, fine lines. No smoothing, no AI sheen, no beauty filter.
 - Lip-sync matches the exact English dialogue, General American accent, @Audio1 voice identity.
-- CREAM LOCK: cream is smooth, pale off-white, opaque, soft peak, no foam, no glitter.
 ```
 
 ### CLIP 6 — What it actually is + Wrongly accused (~22 s)
@@ -528,7 +541,7 @@ PERFORMANCE RULES: relaxed start pose; one gesture per idea, then rest; never mi
 
 STYLE & EMOTION: Maya. Energy arc: reassuring → delighted → amazed.
 
-PRE-SPEAKING ACTION: small breath, lowers the bottle to her lap
+PRE-SPEAKING ACTION: small breath, holds the Botane bottle loosely in her lap
 
 DIALOGUE & PERFORMANCE:
 SHOT 1 — 0:00-0:10 · ON CAMERA (lip-sync)
@@ -623,7 +636,7 @@ LOCKS:
 
 ## Bagian 4 — Wan B-roll
 
-### BR-1 — Maya researching on phone (opsional, kalau insert di CLIP 4 kurang) (5 s)
+### BR-1 — Maya researching on phone (opsional, insert di CLIP 4 udah cover) (5 s)
 **Ref:** Same location as base → @Image1 = BASE-1, @Image2 = Maya sheet. **Ditimpa di:** CLIP 4 shot 2
 
 ```
@@ -661,19 +674,6 @@ ACTION: 0–2s Jake picks his Botane bottle up from the sink counter, holds it c
 CAMERA: static phone on the counter shelf, both people in frame, micro-drift. No zoom.
 AUDIO: no speech, no music, quiet room tone.
 LOCKS: scene from @Image1, faces from @Image2 / @Image4, PRODUCT LOCK identical to @Image3 (one bottle only), no text, natural skin.
-```
-
-### BR-4 — Product hero, pump action (5 s)
-**Ref:** @Image1 = product sheet, @Image2 = BASE-1 (setting). **Ditimpa di:** CLIP 5 / CLIP 7 backup
-
-```
-Reference-based video generation, vertical 9:16, 5 seconds, single continuous shot, no dialogue.
-
-ROLE MAPPING: @Image1 = product reference, copy exactly. @Image2 = BASE-1 for the setting (bedside table, window light only; no person).
-ACTION: 0–2s bottle stands on the wooden bedside table in soft daylight; 2–4s a hand (Maya's, black hair tie on wrist, sage-grey sleeve) lifts the clear dome cap off; 4–5s presses the silver pump once, a smooth pale off-white dollop of cream lands on two fingertips.
-CAMERA: handheld close-up, slight micro-drift, phone look.
-AUDIO: quiet room tone only.
-LOCKS: PRODUCT LOCK identical to @Image1, no added text, no logo invention, natural light.
 ```
 
 
@@ -782,8 +782,8 @@ LOCKS: no text, no labels, no arrows with words, no numbers, no logos, no people
 ---
 
 ## Risiko & urutan test
-1. **Test CLIP 1A dulu** → cek aksen US & timbre @Audio1, plus apakah botol tetap botol (bukan berubah jadi tube). Kalau aksen bocor, pertegas ACCENT OVERRIDE.
-2. **CLIP 5 shot 2 (pump + krim)** paling rawan: tangan + tutup bening + pump sering rusak. Kalau gagal, pakai BR-4 sebagai pengganti insert.
+1. **Test CLIP 1A dulu** → cek aksen US & timbre @Audio1. Lalu **CLIP 4** (produk pertama kali diangkat) → cek botol tetap botol. Kalau aksen bocor, pertegas ACCENT OVERRIDE.
+2. **CLIP 4 shot 3 / CLIP 7 shot 2 (Maya ngangkat botol)**: tangan + tutup bening sering berubah bentuk. Cek PRODUCT LOCK.
 3. **Label produk**: teks "BOTANE MAN+" bakal sering blur/ngaco di AI [High confidence — model video masih lemah render teks kecil]. Solusi: shot produk dekat diganti foto produk asli / tempel label di edit.
 4. **ANIM-3/ANIM-4** bisa jadi abstrak. Kalau hasil Wan ga jelas, generate ulang dengan durasi lebih pendek (5 s) dan satu aksi aja.
 5. Durasi asli bisa meleset ±3 s dari estimasi; recount kalau ada clip mepet 30 s (ga ada yang lewat 22 s, jadi aman).
